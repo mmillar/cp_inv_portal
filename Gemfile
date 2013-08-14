@@ -11,7 +11,7 @@ gem 'pdfkit', :git => "https://github.com/huerlisi/PDFKit.git"
 gem "devise"
 gem "cancan", "~>1.6.5"
 gem 'web-app-theme', '~> 0.7.0'
-gem 'will_paginate', '~>3.0.3'
+gem 'kaminari'
 gem "db_populate", "~>0.2.6"
 gem 'spreadsheet', '~>0.6.5.7'
 gem 'nested_form'
