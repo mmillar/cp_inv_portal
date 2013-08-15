@@ -20,9 +20,27 @@
     <%= f.text_field :name %>
   </div>
   <div class="field">
+    <%= f.label :date %><br />
+    <%= f.datetime_select :date %>
+  </div>
+  <div class="field">
     <%= f.label :notes %><br />
     <%= f.text_area :notes, :size => '50x10' %>
   </div>
+  <% if @conference.id == nil %>
+  <div class="field">
+    <%= f.label :docket %><br />
+    <%= text_field :transaction, :docket %>
+  </div>
+  <div class="field">
+    <%= f.label :folded %><br />
+    <%= text_field :transaction, :folded, :value => 0 %>
+  </div>
+  <div class="field">
+    <%= f.label :flat %><br />
+    <%= text_field :transaction, :flat, :value => 0 %>
+  </div>
+  <% end %>
   <div>
     <%= f.label :contact %><br />
     <%= f.collection_select :user_id, User.all, :id, :full_name %>

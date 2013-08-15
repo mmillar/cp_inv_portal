@@ -1,17 +1,65 @@
 <div class="block" id="block-text">  
   <div class="content">
-    <h2 class="title">Home</h2>
+    <h2 class="title"><%= @conference.name %></h2>
     <div class="inner">
-      <p class="first">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. <span class="hightlight">Excepteur sint occaecat cupidatat non proident</span>, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </p>
-      <p> <span class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore</span></p>
-      <p> <span class="gray">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore</span></p>
+      <i>Date:</i> <b><%= @conference.date.strftime("%B %e, %Y") %></b><br>
+      <i>Marketer:</i> <b><%= @conference.user.full_name %></b><br>
+      <i>Notes:</i> <b><%= @conference.notes %></b><br>
+      <br>
       <hr />
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. <span class="hightlight">Excepteur sint occaecat cupidatat non proident</span>, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </p>
-    </div>
+
+      <table width="100%">
+        <tr>
+          <th>Date</th>
+          <th>Docket#</th>
+          <th>Usage</th>
+          <th>Code/Comments</th>
+          <th>Folded</th>
+          <th>Flat</th>
+          <th>Total</th>
+          <th></th>
+          <th></th>
+        </tr>
+
+      <% 
+      folded = 0
+      flat = 0
+
+      @transactions.each do |transaction| %>
+        <tr>
+          <td><%= transaction.date.strftime("%B %e, %Y") if transaction.date %></td>
+          <td><%= transaction.docket %></td>
+          <td><%= transaction.usage %></td>
+          <td><%= transaction.note %></td>
+          <td><%= transaction.folded if transaction.folded != 0 %></td>
+          <td><%= transaction.flat if transaction.flat != 0 %></td>
+          <td><%= (transaction.folded + transaction.flat) if (transaction.folded != nil && transaction.flat != nil)  %></td>
+          <td><%= link_to 'Edit', edit_transaction_path(transaction) if @admin %></td>
+          <td><%= link_to 'Destroy', transaction, :confirm => 'Are you sure?', :method => :delete if @admin %></td>
+        </tr>
+      <% 
+        folded = folded + transaction.folded if transaction.folded
+        flat = flat + transaction.flat if transaction.flat
+      end %>
+
+        <tr style="font-weight:bold;">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td style="border-top: 1px solid black;padding-top:3px">Total:</td>
+          <td style="border-top: 1px solid black;padding-top:3px"><%= folded %></td>
+          <td style="border-top: 1px solid black;padding-top:3px"><%= flat %></td>
+          <td style="border-top: 1px solid black;padding-top:3px"><%= flat + folded %></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+
+      </table>
+
+      <br />
+
+      <%= link_to 'New Inventory Adjustment', new_transaction_path(:conference_id => @conference.id) if @admin %>    </div>
   </div>
 </div>
 

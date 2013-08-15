@@ -2,7 +2,8 @@ class ConferencesController < ApplicationController
   # GET /conferences
   # GET /conferences.xml
   def index
-    @conferences = Conference.all
+    @conferences = @limited_conferences.where('date >= ? or date is null',Time.now).all
+    @user = current_user
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,6 +15,7 @@ class ConferencesController < ApplicationController
   # GET /conferences/1.xml
   def show
     @conference = Conference.find(params[:id])
+    @transactions = @conference.transactions
 
     respond_to do |format|
       format.html # show.html.erb
@@ -35,12 +37,16 @@ class ConferencesController < ApplicationController
   # GET /conferences/1/edit
   def edit
     @conference = Conference.find(params[:id])
+    @transaction = (@conference.transactions.first)? @conference.transactions.first : @conference.transactions.new
   end
 
   # POST /conferences
   # POST /conferences.xml
   def create
     @conference = Conference.new(params[:conference])
+    @transaction = @conference.transactions.build(params[:transaction])
+    @transaction.date = Time.now
+    @transaction.note = "Initial print inventory"
 
     respond_to do |format|
       if @conference.save

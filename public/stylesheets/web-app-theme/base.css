@@ -92,8 +92,8 @@ body {
 }
 
 #sidebar ul.navigation li a:link, #sidebar ul.navigation li a:visited {
-  display: block;
-  padding: 10px 15px;
+  margin: 0px;
+  text-decoration: underline;
 }
 
 #sidebar .block .sidebar-block, #sidebar .notice {
@@ -118,13 +118,14 @@ body {
 }
 
 #user-navigation {
-  position: absolute;
+  float: right;
   top: 0px;
   right: 20px;  
 }
 
 #main-navigation {
-  width: 100%;
+  width: 50%;
+  float: left;
 }
 
 #user-navigation ul, #main-navigation ul, .secondary-navigation ul, #sidebar ul.navigation {

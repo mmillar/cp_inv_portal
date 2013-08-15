@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130814120945) do
+ActiveRecord::Schema.define(:version => 20130815142230) do
+
+  create_table "clients", :force => true do |t|
+    t.string   "name"
+    t.string   "pri_color"
+    t.string   "sec_color"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "website"
+  end
 
   create_table "conferences", :force => true do |t|
     t.string   "code"
@@ -20,6 +29,8 @@ ActiveRecord::Schema.define(:version => 20130814120945) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.datetime "date"
+    t.integer  "transaction_id"
   end
 
   create_table "transactions", :force => true do |t|
@@ -28,6 +39,10 @@ ActiveRecord::Schema.define(:version => 20130814120945) do
     t.integer  "conference_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "date"
+    t.text     "note"
+    t.string   "docket"
+    t.string   "usage"
   end
 
   create_table "users", :force => true do |t|
@@ -46,6 +61,8 @@ ActiveRecord::Schema.define(:version => 20130814120945) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "phone"
+    t.boolean  "admin"
+    t.integer  "client_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
