@@ -6,5 +6,7 @@ CpInvPortal::Application.routes.draw do
 
   devise_for :users
 
+  match 'stylesheets/:action.:format', :controller => 'stylesheets'
+
   root :to => "conferences#index"
 end
