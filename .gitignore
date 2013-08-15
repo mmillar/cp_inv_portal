@@ -4,3 +4,4 @@ log/*.log
 tmp/
 .rvmrc
 vendor/cache
+config/database.yml

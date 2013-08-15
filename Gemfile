@@ -7,7 +7,6 @@ gem 'i18n', '~>0.5.0'
 gem "rails3-generators"
 gem "jquery-rails"
 gem 'fancybox-rails'
-gem 'pdfkit', :git => "https://github.com/huerlisi/PDFKit.git"
 gem "devise"
 gem "cancan", "~>1.6.5"
 gem 'web-app-theme', '~> 0.7.0'
